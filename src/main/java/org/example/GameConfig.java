@@ -4,6 +4,7 @@ import org.example.model.Car;
 import org.example.model.RandomNumber;
 import org.example.model.UserInput;
 import org.example.service.RacingService;
+import org.example.valid.InputValueExceptions;
 import org.example.valid.Validation;
 import org.example.view.OutputMessage;
 
@@ -17,18 +18,22 @@ public class GameConfig {
 
     private String userInput;
     private Car car;
-    private List<String> nameList;
+    List<String> nameList;
     private int inputTurn;
     public void gameRun() {
-        // 자동차 이름 입력 문구
-        outputMessage.toStart();
 
-        String userInput = UserInput.hasString();
-        Car car = new Car(userInput);
-
-        List<String> nameList = car.isMoreName(car);
-        // 입력 검사
-        Validation.insertCarNames(nameList);
+        restart:
+        while (true) {
+            try {
+                outputMessage.toStart();
+                reRunInput();
+                Validation.isRightInput(nameList);
+            } catch (InputValueExceptions e) {
+                e.printStackTrace();
+                continue restart;
+            }
+            break;
+        }
 
         // 턴 수 입력 문구
         outputMessage.enterTurnNumber();
@@ -47,7 +52,6 @@ public class GameConfig {
     }
 
     public void reRunInput() {
-
         this.userInput = UserInput.hasString();
         this.car = new Car(userInput);
         this.nameList = car.isMoreName(car);
