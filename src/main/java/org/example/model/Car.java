@@ -1,8 +1,8 @@
 package org.example.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Car {
 
@@ -22,10 +22,8 @@ public class Car {
     }
 
     public List<String> isMoreName(Car car) {
-        String carName = car.getName();
-        String[] divideCarName = carName.split(",");
-        List<String> haveEachName = new ArrayList<>(Arrays.asList(divideCarName));
-        return haveEachName;
+        return Stream.of(car.getName().split(","))
+                .collect(Collectors.toList());
     }
-    
+
 }

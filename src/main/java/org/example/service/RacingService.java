@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class RacingService implements Running {
 
@@ -22,18 +24,17 @@ public class RacingService implements Running {
         return PlayerConditions;
     }
 
+    // car로 넘어온 키(자동차 이름)를 그대로 반환하기 위해 Function.identity() 사용
     @Override
     public void defaultPlayerMap(List<String> car) {
-        for (int i = 0; i < car.size(); i++) {
-            PlayerConditions.put(car.get(i), ZERO);
-        }
+        PlayerConditions = car.stream()
+                .collect(Collectors.toMap(Function.identity(), defaultNum -> ZERO));
     }
 
     @Override
-    public void makeRandomNumOfCarName(List<String> car, RandomNumber randomNumber, int turn) {
-        for (int i = 0; i < car.size(); i++) {
-            PlayerRandomNumber.put(car.get(i), randomNumber.initNumber());
-        }
+    public void makeRandomNumOfCarName(List<String> car, RandomNumber randomNumber) {
+        PlayerRandomNumber = car.stream()
+                .collect(Collectors.toMap(Function.identity(), value -> randomNumber.initNumber()));
         isOverNumberfour();
     }
 

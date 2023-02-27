@@ -37,7 +37,7 @@ public class GameConfig {
 
         // 턴 수 입력 문구
         outputMessage.enterTurnNumber();
-        int inputTurn = UserInput.number();
+        inputTurn = UserInput.number();
 
         racingService.defaultPlayerMap(nameList);
 
@@ -45,13 +45,13 @@ public class GameConfig {
         outputMessage.runResult();
 
         for (int i = 0; i < inputTurn; i++) {
-            racingService.makeRandomNumOfCarName(nameList, randomNumber, inputTurn);
+            racingService.makeRandomNumOfCarName(nameList, randomNumber);
             outputMessage.resultLoopPrint(racingService);
         }
         outputMessage.printWinner(racingService.isWinner());
     }
 
-    public void reRunInput() {
+    private void reRunInput() {
         this.userInput = UserInput.hasString();
         this.car = new Car(userInput);
         this.nameList = car.isMoreName(car);

@@ -1,7 +1,5 @@
 package org.example.valid;
 
-import org.example.GameConfig;
-
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,11 +7,6 @@ public class Validation {
 
     private static final String ERROR_HEADER = "[ERROR]";
     private static final int NAME_LENGTH_LIMIT = 5;
-
-//    public static boolean insertCarNames(List<String> carNames) {
-//        isRightInput(carNames);
-//        return false;
-//    }
 
     public static void isRightInput(List<String> carNames) {
         for (String carName : carNames) {
